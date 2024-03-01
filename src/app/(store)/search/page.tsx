@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { api } from '@/data/api'
 import { Product } from '@/data/@types/products'
@@ -16,7 +16,9 @@ async function searchProducts(query: string): Promise<Product[]> {
       revalidate: 60 * 60, // 1 hour
     },
   })
+
   const products = await response.json()
+
   return products
 }
 
@@ -31,7 +33,7 @@ export default async function Search({ searchParams }: SearchProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <p>
+      <p className="text-sm">
         Resultados para: <span className="font-semibold">{query}</span>
       </p>
 
@@ -44,8 +46,8 @@ export default async function Search({ searchParams }: SearchProps) {
               className="group relative rounded-lg bg-zinc-900 overflow-hidden flex justify-center items-end"
             >
               <Image
-                className="group-hover:scale-105 transition-transform duration-500"
                 src={product.image}
+                className="group-hover:scale-105 transition-transform duration-500"
                 width={480}
                 height={480}
                 quality={100}
